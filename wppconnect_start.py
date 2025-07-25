@@ -1,9 +1,6 @@
-from WPP_Whatsapp import connect
+from wppconnect import enviar_alerta
 
-client = connect()
-client.start()
+if __name__ == "__main__":
+    mensagem = "🚨 Teste de envio automático via WPPConnect"
+    print(enviar_alerta(mensagem))
 
-# Mantém o processo rodando indefinidamente
-import time
-while True:
-    time.sleep(60)
