@@ -1,14 +1,25 @@
 from fastapi import FastAPI, Request
-from wppconnect import enviar_alerta
+import requests
 
 app = FastAPI()
 
+@app.get("/")
+def root():
+    return {"status": "API online"}
+
 @app.post("/enviar-alerta")
-async def receber_alerta(request: Request):
-    dados = await request.json()
-    mensagem = dados.get("mensagem")
-    if not mensagem:
-        return {"erro": "Mensagem não enviada"}
-    
-    status = enviar_alerta(mensagem)
-    return {"status": status}
+async def enviar_alerta(request: Request):
+    data = await request.json()
+    mensagem = data.get("mensagem", "⚠️ Alerta sem conteúdo.")
+
+    # Exemplo de payload para WPPConnect
+    payload = {
+        "phone": "seu_numero_ou_id_grupo",
+        "message": mensagem
+    }
+
+    # Endpoint da sua instância do WPPConnect
+    wpp_url = "http://localhost:21465/api/send-message"
+
+    response = requests.post(wpp_url, json=payload)
+    return {"status": "enviado", "resposta": response.json()}
