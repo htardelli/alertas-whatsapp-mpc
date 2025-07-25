@@ -1,4 +1,4 @@
-from wpp_cliente import connect
+from WPP_Whatsapp import connect
 
 def enviar_alerta(mensagem: str):
     try:
