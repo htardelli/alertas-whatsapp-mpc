@@ -14,7 +14,7 @@ async def enviar_alerta(request: Request):
 
     # Exemplo de payload para WPPConnect
     payload = {
-        "phone": "seu_numero_ou_id_grupo",
+        "phone": "120363167795908941@g.us",
         "message": mensagem
     }
 
